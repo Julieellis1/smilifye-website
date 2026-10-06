@@ -1,4 +1,4 @@
-/* Smilifye — shared interactions */
+/* ZoeSmile Dental — shared interactions */
 (function () {
   "use strict";
 
@@ -150,17 +150,41 @@
     });
   });
 
-  /* ---------- Appointment form (demo) ---------- */
-  var form = document.getElementById("appointmentForm");
+  /* ---------- Contact form (front-end only) ---------- */
+  var form = document.getElementById("apptForm") || document.getElementById("appointmentForm");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var note = document.getElementById("formNote");
+      var consent = document.getElementById("consent");
+      if (consent && !consent.checked) {
+        if (note) {
+          note.style.display = "block";
+          note.style.color = "#b3261e";
+          note.textContent = "Please tick the consent box so we know we may contact you about your enquiry.";
+        }
+        return;
+      }
       if (note) {
         note.style.display = "block";
-        note.textContent = "Thank you! Your request has been received — our team will call you shortly to confirm your visit.";
+        note.style.color = "var(--primary)";
+        note.textContent = "Thanks — your message has been received. Our team will review it and get back to you during clinic hours.";
       }
       form.reset();
+    });
+  }
+
+  /* ---------- Newsletter form (front-end only) ---------- */
+  var nl = document.getElementById("newsletterForm");
+  if (nl) {
+    nl.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var note = document.getElementById("newsletterNote");
+      if (note) {
+        note.style.color = "var(--primary)";
+        note.textContent = "Thanks for subscribing — you'll hear from ZoeSmile soon.";
+      }
+      nl.reset();
     });
   }
 
